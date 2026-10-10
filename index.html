@@ -96,6 +96,24 @@
     ::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* Cart badge */
+    #cartBtn { transition: transform 0.2s, box-shadow 0.2s; }
+    #cartBtn:active { transform: scale(0.93); }
+    #cartBtn.bump { animation: bump 0.25s ease; }
+    @keyframes bump {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    /* Cart sheet */
+    #cartSheet {
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.32,0.72,0,1);
+    }
+    #cartSheet.open { transform: translateY(0); }
+    #cartBackdrop { transition: opacity 0.3s; }
+
     /* Category filter active state */
     .filter-chip.active {
       background-color: #2c1810;
@@ -219,7 +237,7 @@
             <span class="material-symbols-outlined text-[20px]">call</span>
           </a>
           <!-- Desktop order button -->
-          <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+          <a href="https://zaloapp.com" target="_blank" rel="noopener noreferrer" data-zalo="true"
              class="hidden lg:flex min-h-[40px] px-space-md rounded-full text-white items-center gap-2 text-label-md transition-all hover:opacity-90 active:scale-95"
              style="background: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
             <span class="material-symbols-outlined text-[18px]">chat</span>
@@ -431,7 +449,7 @@
 
       <!-- CTA buttons — replace href with your real Zalo/Messenger links -->
       <div class="flex flex-col gap-space-xs pt-space-xs">
-        <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+        <a href="https://zaloapp.com" target="_blank" rel="noopener noreferrer" data-zalo="true"
            class="w-full min-h-[52px] px-space-md rounded-full text-white flex items-center justify-between active:scale-[0.98] transition-transform"
            style="background: #0068FF; box-shadow: 0 6px 20px rgba(0,104,255,0.35);">
           <div class="flex items-center gap-3">
@@ -463,18 +481,18 @@
       </div>
 
       <!-- Hotline banner -->
-      <a href="tel:0944939184"
-         class="w-full p-4 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-between active:scale-[0.99] transition-transform"
+      <div class="w-full p-4 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-between"
          style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-full bg-primary-container text-surface-bright flex items-center justify-center flex-shrink-0">
             <span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
           </div>
+          <div class="flex flex-col">
+            <span class="text-label-sm uppercase tracking-wider text-secondary" style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:11px;">Hỗ trợ giao hàng hỏa tốc</span>
+            <span class="text-headline-sm text-primary-container">0944 939 184 – 0902 366 136</span>
+          </div>
         </div>
-        <span class="text-label-sm bg-primary-container text-surface-bright px-3 py-1.5 rounded-full flex-shrink-0" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
-          Bấm gọi ngay
-        </span>
-      </a>
+      </div>
     </section>
 
     <!-- ── 4. CONTACT / FOOTER SECTION ── -->
@@ -534,7 +552,7 @@
       <div class="flex flex-col items-center gap-space-sm pt-space-xs">
         <span class="text-label-sm text-on-surface-variant uppercase tracking-wider" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">Kết nối cùng 168 Cafe</span>
         <div class="flex items-center gap-3">
-          <a href="https://zalo.me/huongnguyen" aria-label="Zalo" target="_blank" rel="noopener noreferrer"
+          <a href="https://zaloapp.com" aria-label="Zalo" target="_blank" rel="noopener noreferrer"
              class="w-11 h-11 rounded-full bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors"
              style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
             <span class="text-label-md font-bold" style="color: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700;">Zalo</span>
@@ -542,7 +560,7 @@
           <a href="https://www.facebook.com/huongstoretb/" aria-label="Facebook Fanpage" target="_blank" rel="noopener noreferrer"
              class="w-11 h-11 rounded-full bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors"
              style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
-            <span class="material-symbols-outlined text-[22px]" style="color: #0084FF;">public</span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#0084FF" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
           </a>
           <a href="https://instagram.com/168cafe" aria-label="Instagram" target="_blank" rel="noopener noreferrer"
              class="w-11 h-11 rounded-full bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors"
@@ -575,7 +593,7 @@
           <span class="text-headline-sm text-on-surface">Đặt hàng ngay</span>
         </div>
         <p class="text-body-sm text-on-surface-variant">Nhắn tin trực tiếp – nhân viên nhận đơn trong 2 phút.</p>
-        <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+        <a href="https://zaloapp.com" target="_blank" rel="noopener noreferrer" data-zalo="true"
            class="w-full min-h-[48px] px-space-md rounded-full text-white flex items-center justify-center gap-2 text-label-lg transition-all hover:opacity-90 active:scale-[0.98]"
            style="background: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 6px 20px rgba(0,104,255,0.3);">
           <span class="material-symbols-outlined text-[20px]">chat</span>
@@ -657,7 +675,7 @@
   <nav class="bottom-nav fixed bottom-0 w-full z-50 pb-safe bg-surface/92 backdrop-blur-xl" style="box-shadow: 0 -4px 20px -2px rgba(44,24,16,0.1);">
     <!-- Quick order CTAs -->
     <div class="px-gutter py-space-sm flex items-center gap-space-sm">
-      <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+      <a href="https://zaloapp.com" target="_blank" rel="noopener noreferrer" data-zalo="true"
          class="flex-1 min-h-[48px] px-space-md rounded-full text-white flex items-center justify-center gap-space-xs text-label-lg active:scale-[0.98] transition-transform"
          style="background: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 4px 14px rgba(0,104,255,0.3);">
         <span class="material-symbols-outlined text-[20px]">chat</span>
@@ -733,6 +751,58 @@
     updateNavChip('hero');
     updateBottomTab('hero');
 
+    // ── Menu fallback data (used when fetch is blocked on file://) ──
+    const MENU_FALLBACK = [
+      {
+        "category": "Cafe",
+        "items": [
+          { "name": "Cafe Đen",              "price": "20,000đ", "desc": "",                         "tags": "Đậm vị • Truyền thống" },
+          { "name": "Cafe Sữa",              "price": "23,000đ", "desc": "",                         "tags": "Ngọt béo • Cổ điển" },
+          { "name": "Cafe Latte",            "price": "30,000đ", "desc": "",                         "tags": "Thơm mịn • Kem sữa" },
+          { "name": "Matcha Latte",          "price": "35,000đ", "desc": "",                         "tags": "Trà xanh • Béo ngậy" },
+          { "name": "Bạc Xỉu",              "price": "25,000đ", "desc": "",                         "tags": "Ngọt dịu • Ít caffein" },
+          { "name": "Cacao",                 "price": "25,000đ", "desc": "",                         "tags": "Ngọt đậm • Socola" },
+          { "name": "Cacao Latte",           "price": "35,000đ", "desc": "",                         "tags": "Kem sữa • Socola" },
+          { "name": "Sữa Tươi",             "price": "30,000đ", "desc": "",                         "tags": "Thanh mát • Bổ dưỡng" },
+          { "name": "Sữa Tươi Đường Đen",   "price": "35,000đ", "desc": "Matcha, socola",           "tags": "Thơm béo • Đường đen" }
+        ]
+      },
+      {
+        "category": "Trà",
+        "items": [
+          { "name": "Trà Lipton",    "price": "30,000đ", "desc": "",                                       "tags": "Thanh nhẹ • Cổ điển" },
+          { "name": "Trà Gừng",     "price": "30,000đ", "desc": "",                                       "tags": "Ấm nóng • Thơm cay" },
+          { "name": "Trà Sữa",      "price": "35,000đ", "desc": "Bạc hà, khoai môn, matcha, socola",     "tags": "Béo ngậy • Nhiều vị" },
+          { "name": "Trà Đào",      "price": "30,000đ", "desc": "",                                       "tags": "Chua ngọt • Thơm mát" },
+          { "name": "Trà Oolong",   "price": "30,000đ", "desc": "Cam, đào, dâu, chanh dây, thơm",        "tags": "Thanh mát • Nhiều vị" },
+          { "name": "Trà Đá Me",    "price": "30,000đ", "desc": "",                                       "tags": "Chua ngọt • Giải nhiệt" },
+          { "name": "Trà Đác Thơm", "price": "35,000đ", "desc": "",                                       "tags": "Đặc biệt • Thơm ngon" }
+        ]
+      },
+      {
+        "category": "Nước Ép & Soda",
+        "items": [
+          { "name": "Nước Ép",            "price": "30,000đ", "desc": "Cam, thơm, carot, ổi, táo", "tags": "Tươi mát • Vitamin" },
+          { "name": "Nước Ép Mix",        "price": "35,000đ", "desc": "",                           "tags": "Hỗn hợp • Bổ dưỡng" },
+          { "name": "Sinh Tố",            "price": "30,000đ", "desc": "",                           "tags": "Béo bùi • Đầy đặn" },
+          { "name": "Soda",               "price": "25,000đ", "desc": "",                           "tags": "Sảng khoái • Giải nhiệt" },
+          { "name": "Chanh, Tắc Muối",    "price": "25,000đ", "desc": "",                           "tags": "Chua mặn • Giải khát" },
+          { "name": "Nước Mơ, Nước Sấu", "price": "25,000đ", "desc": "",                           "tags": "Chua ngọt • Đặc sản" },
+          { "name": "Nước Chanh, Tắc",   "price": "25,000đ", "desc": "",                           "tags": "Chua tươi • Mát lạnh" }
+        ]
+      },
+      {
+        "category": "Yogurt",
+        "items": [
+          { "name": "Yogurt Hũ",              "price": "15,000đ", "desc": "",                          "tags": "Chua ngọt • Nhẹ nhàng" },
+          { "name": "Yogurt Đá",              "price": "25,000đ", "desc": "",                          "tags": "Mát lạnh • Sảng khoái" },
+          { "name": "Yogurt Matcha / Socola", "price": "35,000đ", "desc": "",                          "tags": "Béo ngậy • Đặc biệt" },
+          { "name": "Yogurt Trái Cây",        "price": "30,000đ", "desc": "Việt quất, dâu, đào, cam", "tags": "Tươi mát • Vitamin" },
+          { "name": "Yogurt Đác Thơm",        "price": "35,000đ", "desc": "",                          "tags": "Đặc biệt • Thơm ngon" }
+        ]
+      }
+    ];
+
     // ── Render menu from JSON ──
     async function loadMenu() {
       const filterEl = document.getElementById('filterChips');
@@ -743,12 +813,7 @@
         if (!res.ok) throw new Error('fetch failed');
         data = await res.json();
       } catch (e) {
-        gridEl.innerHTML = `
-          <div class="col-span-2 p-space-md rounded-xl bg-surface-container text-center text-body-sm text-on-surface-variant">
-            Không thể tải thực đơn. Vui lòng chạy qua local server (python3 -m http.server).
-          </div>`;
-        filterEl.innerHTML = '';
-        return;
+        data = MENU_FALLBACK;
       }
 
       // Build filter chips
@@ -791,12 +856,12 @@
                     style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
                 ${item.tags || item.category}
               </span>
-              <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+              <button onclick="addToCart('${item.name.replace(/'/g, "\\'")}', '${item.price}')"
                  class="min-h-[36px] px-3 rounded-full bg-secondary-container text-on-secondary-container text-label-md flex items-center gap-1 active:scale-95 transition-transform"
                  style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
                 <span class="material-symbols-outlined text-[16px]">add</span>
                 Chọn món
-              </a>
+              </button>
             </div>
           </div>
         `).join('');
@@ -857,6 +922,228 @@
     })();
 
     loadMenu();
+  </script>
+
+  <!-- ═══════════════════════════════════════
+       CART FAB
+  ════════════════════════════════════════ -->
+  <button id="cartBtn"
+    class="fixed z-50 hidden items-center gap-2 rounded-full bg-primary-container text-surface-bright shadow-float px-4"
+    style="bottom: calc(7rem + env(safe-area-inset-bottom, 0px)); right: 1rem; height: 48px; box-shadow: 0 8px 24px rgba(44,24,16,0.3);"
+    aria-label="Xem giỏ hàng">
+    <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+    <span id="cartCount" class="text-label-lg" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:15px;">0</span>
+    <span class="text-label-md" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:13px;">món</span>
+  </button>
+
+  <!-- Cart backdrop -->
+  <div id="cartBackdrop" class="fixed inset-0 z-50 bg-primary-container/60 hidden opacity-0 backdrop-blur-sm"></div>
+
+  <!-- Cart sheet -->
+  <div id="cartSheet"
+       class="fixed bottom-0 left-0 right-0 z-50 bg-surface-container-lowest rounded-t-xl flex flex-col"
+       style="max-height: 85vh; box-shadow: 0 -8px 32px rgba(44,24,16,0.15);">
+
+    <!-- Sheet handle + header -->
+    <div class="flex items-center justify-between px-space-md pt-3 pb-space-sm border-b border-outline-variant flex-shrink-0">
+      <div class="w-10 h-1 rounded-full bg-outline-variant absolute top-2 left-1/2 -translate-x-1/2"></div>
+      <span class="text-headline-sm text-on-surface mt-2">Giỏ hàng</span>
+      <button id="cartClose" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform mt-2">
+        <span class="material-symbols-outlined text-[20px] text-on-surface-variant">close</span>
+      </button>
+    </div>
+
+    <!-- Item list -->
+    <div id="cartItems" class="flex-1 overflow-y-auto px-space-md py-space-sm flex flex-col gap-2"></div>
+
+    <!-- Footer actions -->
+    <div class="px-space-md pt-space-sm pb-space-md flex flex-col gap-space-xs flex-shrink-0 border-t border-outline-variant" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom,0px));">
+      <div class="flex items-center justify-between py-1">
+        <span class="text-body-md text-on-surface-variant">Tổng cộng</span>
+        <span id="cartTotal" class="text-headline-sm text-on-surface"></span>
+      </div>
+      <a id="cartZaloBtn" href="https://zaloapp.com" target="_blank" rel="noopener noreferrer" data-zalo="true"
+         class="w-full min-h-[52px] rounded-full text-white flex items-center justify-center gap-2 text-label-lg active:scale-[0.98] transition-transform"
+         style="background:#0068FF; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px; box-shadow:0 6px 20px rgba(0,104,255,0.3);">
+        <span class="material-symbols-outlined text-[20px]">chat</span>
+        Gửi đơn qua Zalo
+      </a>
+      <button id="cartClear"
+         class="w-full min-h-[40px] rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center gap-2 text-label-md active:scale-[0.98] transition-transform"
+         style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:13px;">
+        <span class="material-symbols-outlined text-[16px]">delete</span>
+        Xoá giỏ hàng
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // ── Cart logic ──
+    const cart = {}; // { "Item Name": { price, qty } }
+
+    const cartBtn      = document.getElementById('cartBtn');
+    const cartCount    = document.getElementById('cartCount');
+    const cartSheet    = document.getElementById('cartSheet');
+    const cartBackdrop = document.getElementById('cartBackdrop');
+    const cartClose    = document.getElementById('cartClose');
+    const cartItems    = document.getElementById('cartItems');
+    const cartTotal    = document.getElementById('cartTotal');
+    const cartZaloBtn  = document.getElementById('cartZaloBtn');
+    const cartClear    = document.getElementById('cartClear');
+
+    function totalQty() {
+      return Object.values(cart).reduce((s, v) => s + v.qty, 0);
+    }
+
+    function updateCartBtn() {
+      const qty = totalQty();
+      cartCount.textContent = qty;
+      if (qty > 0) {
+        cartBtn.classList.remove('hidden');
+        cartBtn.classList.add('flex');
+      } else {
+        cartBtn.classList.add('hidden');
+        cartBtn.classList.remove('flex');
+      }
+    }
+
+    function addToCart(name, price) {
+      if (cart[name]) {
+        cart[name].qty++;
+      } else {
+        cart[name] = { price, qty: 1 };
+      }
+      updateCartBtn();
+      // Bump animation
+      cartBtn.classList.remove('bump');
+      void cartBtn.offsetWidth;
+      cartBtn.classList.add('bump');
+    }
+
+    function removeFromCart(name) {
+      delete cart[name];
+      updateCartBtn();
+      renderCartItems();
+    }
+
+    function changeQty(name, delta) {
+      cart[name].qty += delta;
+      if (cart[name].qty <= 0) delete cart[name];
+      updateCartBtn();
+      renderCartItems();
+    }
+
+    function renderCartItems() {
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        cartItems.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-10 gap-2 text-on-surface-variant">
+            <span class="material-symbols-outlined text-[40px]">shopping_bag</span>
+            <span class="text-body-md">Giỏ hàng trống</span>
+          </div>`;
+        cartTotal.textContent = '';
+        cartZaloBtn.dataset.order = '';
+        cartZaloBtn.href = 'https://zaloapp.com';
+        return;
+      }
+
+      // Render rows
+      cartItems.innerHTML = entries.map(([name, { price, qty }]) => `
+        <div class="flex items-center justify-between gap-2 py-2 border-b border-outline-variant last:border-0">
+          <div class="flex flex-col min-w-0 flex-1">
+            <span class="text-body-md text-on-surface font-medium truncate">${name}</span>
+            <span class="text-body-sm text-secondary">${price}</span>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <button class="qty-btn w-8 h-8 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform"
+                    data-name="${name}" data-delta="-1">
+              <span class="material-symbols-outlined text-[16px]">remove</span>
+            </button>
+            <span class="text-label-lg w-5 text-center" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">${qty}</span>
+            <button class="qty-btn w-8 h-8 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform"
+                    data-name="${name}" data-delta="1">
+              <span class="material-symbols-outlined text-[16px]">add</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      // Attach qty button listeners
+      cartItems.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          changeQty(btn.dataset.name, parseInt(btn.dataset.delta));
+        });
+      });
+
+      // Compute total (prices like "25,000đ")
+      let total = 0;
+      entries.forEach(([, { price, qty }]) => {
+        const num = parseInt(price.replace(/[^0-9]/g, ''));
+        total += num * qty;
+      });
+      cartTotal.textContent = total.toLocaleString('vi-VN') + 'đ';
+
+      // Build Zalo message
+      const lines = entries.map(([name, { price, qty }]) => `- ${name} x${qty} (${price})`).join('\n');
+      const msg = `Xin chào! Em muốn đặt hàng từ 168 Cafe:\n${lines}\nTổng: ${cartTotal.textContent}\nĐịa chỉ giao: `;
+      cartZaloBtn.dataset.order = msg;
+    }
+
+    function openCart() {
+      renderCartItems();
+      cartBackdrop.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        cartBackdrop.style.opacity = '1';
+        cartSheet.classList.add('open');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      cartSheet.classList.remove('open');
+      cartBackdrop.style.opacity = '0';
+      setTimeout(() => cartBackdrop.classList.add('hidden'), 300);
+      document.body.style.overflow = '';
+    }
+
+    cartBtn.addEventListener('click', openCart);
+    cartClose.addEventListener('click', closeCart);
+    cartBackdrop.addEventListener('click', closeCart);
+    cartClear.addEventListener('click', () => {
+      Object.keys(cart).forEach(k => delete cart[k]);
+      updateCartBtn();
+      renderCartItems();
+    });
+
+    // Expose addToCart globally so menu cards can call it
+    window.addToCart = addToCart;
+  </script>
+
+  <!-- ── Zalo deep link handler ── -->
+  <script>
+    const ZALO_SCHEME   = 'zalo://qr/p/1exidsu6ghgp1';
+    const ZALO_FALLBACK = 'https://zaloapp.com';
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('[data-zalo="true"]');
+      if (!link) return;
+
+      if (!isMobile) return; // Desktop: let browser open zaloapp.com normally
+
+      e.preventDefault();
+
+      // Try to open Zalo app via deep link
+      const startTime = Date.now();
+      window.location.href = ZALO_SCHEME;
+
+      // Fallback: if app didn't open within 1.5s, redirect to web
+      setTimeout(function() {
+        if (Date.now() - startTime < 2000) {
+          window.location.href = ZALO_FALLBACK;
+        }
+      }, 1500);
+    });
   </script>
 </body>
 </html>
