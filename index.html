@@ -942,38 +942,110 @@
   <!-- Cart sheet -->
   <div id="cartSheet"
        class="fixed bottom-0 left-0 right-0 z-50 bg-surface-container-lowest rounded-t-xl flex flex-col"
-       style="max-height: 85vh; box-shadow: 0 -8px 32px rgba(44,24,16,0.15);">
+       style="max-height: 90vh; box-shadow: 0 -8px 32px rgba(44,24,16,0.15);">
 
     <!-- Sheet handle + header -->
     <div class="flex items-center justify-between px-space-md pt-3 pb-space-sm border-b border-outline-variant flex-shrink-0">
       <div class="w-10 h-1 rounded-full bg-outline-variant absolute top-2 left-1/2 -translate-x-1/2"></div>
-      <span class="text-headline-sm text-on-surface mt-2">Giỏ hàng</span>
+      <div class="flex items-center gap-2 mt-2">
+        <button id="cartBack" class="w-9 h-9 rounded-full bg-surface-container items-center justify-center active:scale-90 transition-transform hidden">
+          <span class="material-symbols-outlined text-[20px] text-on-surface-variant">arrow_back</span>
+        </button>
+        <span id="cartTitle" class="text-headline-sm text-on-surface">Giỏ hàng</span>
+      </div>
       <button id="cartClose" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform mt-2">
         <span class="material-symbols-outlined text-[20px] text-on-surface-variant">close</span>
       </button>
     </div>
 
-    <!-- Item list -->
-    <div id="cartItems" class="flex-1 overflow-y-auto px-space-md py-space-sm flex flex-col gap-2"></div>
-
-    <!-- Footer actions -->
-    <div class="px-space-md pt-space-sm pb-space-md flex flex-col gap-space-xs flex-shrink-0 border-t border-outline-variant" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom,0px));">
-      <div class="flex items-center justify-between py-1">
-        <span class="text-body-md text-on-surface-variant">Tổng cộng</span>
-        <span id="cartTotal" class="text-headline-sm text-on-surface"></span>
+    <!-- Step 1: Item list -->
+    <div id="cartStep1" class="flex flex-col flex-1 min-h-0">
+      <div id="cartItems" class="flex-1 overflow-y-auto px-space-md py-space-sm flex flex-col gap-2"></div>
+      <div class="px-space-md pt-space-sm pb-space-md flex flex-col gap-space-xs flex-shrink-0 border-t border-outline-variant" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom,0px));">
+        <div class="flex items-center justify-between py-1">
+          <span class="text-body-md text-on-surface-variant">Tổng cộng</span>
+          <span id="cartTotal" class="text-headline-sm text-on-surface"></span>
+        </div>
+        <button id="cartNextBtn"
+           class="w-full min-h-[52px] rounded-full text-on-primary flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+           style="background:#2c1810; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px;">
+          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          Tiếp theo – Thông tin giao hàng
+        </button>
+        <button id="cartClear"
+           class="w-full min-h-[40px] rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center gap-2 text-label-md active:scale-[0.98] transition-transform"
+           style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:13px;">
+          <span class="material-symbols-outlined text-[16px]">delete</span>
+          Xoá giỏ hàng
+        </button>
       </div>
-      <a id="cartZaloBtn" href="https://zaloapp.com" target="_blank" rel="noopener noreferrer" data-zalo="true"
-         class="w-full min-h-[52px] rounded-full text-white flex items-center justify-center gap-2 text-label-lg active:scale-[0.98] transition-transform"
-         style="background:#0068FF; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px; box-shadow:0 6px 20px rgba(0,104,255,0.3);">
-        <span class="material-symbols-outlined text-[20px]">chat</span>
-        Gửi đơn qua Zalo
-      </a>
-      <button id="cartClear"
-         class="w-full min-h-[40px] rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center gap-2 text-label-md active:scale-[0.98] transition-transform"
-         style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:13px;">
-        <span class="material-symbols-outlined text-[16px]">delete</span>
-        Xoá giỏ hàng
-      </button>
+    </div>
+
+    <!-- Step 2: Customer form -->
+    <div id="cartStep2" class="flex flex-col flex-1 min-h-0 hidden">
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm flex flex-col gap-3">
+        <!-- Order summary (compact) -->
+        <div id="orderSummary" class="bg-surface-container rounded-lg px-3 py-2 text-body-sm text-on-surface-variant"></div>
+        <!-- Form fields -->
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-col gap-1">
+            <label class="text-label-md text-on-surface-variant" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;">Họ tên *</label>
+            <input id="fieldName" type="text" placeholder="Nguyễn Văn A" autocomplete="name"
+              class="w-full min-h-[48px] px-4 rounded-xl border border-outline-variant bg-surface text-on-surface text-body-md outline-none focus:border-secondary transition-colors"
+              style="font-family:'Be Vietnam Pro',sans-serif;"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-label-md text-on-surface-variant" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;">Số điện thoại *</label>
+            <input id="fieldPhone" type="tel" placeholder="09xxxxxxxx" autocomplete="tel"
+              class="w-full min-h-[48px] px-4 rounded-xl border border-outline-variant bg-surface text-on-surface text-body-md outline-none focus:border-secondary transition-colors"
+              style="font-family:'Be Vietnam Pro',sans-serif;"/>
+          </div>
+          <div class="flex flex-col gap-1">
+            <label class="text-label-md text-on-surface-variant" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;">Địa chỉ giao hàng *</label>
+            <textarea id="fieldAddress" rows="2" placeholder="Số nhà, đường, phường/xã, Trảng Bom…" autocomplete="street-address"
+              class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface text-on-surface text-body-md outline-none focus:border-secondary transition-colors resize-none"
+              style="font-family:'Be Vietnam Pro',sans-serif;"></textarea>
+          </div>
+          <p id="formError" class="text-body-sm text-red-600 hidden"></p>
+        </div>
+      </div>
+      <div class="px-space-md pt-space-sm pb-space-md flex flex-col gap-space-xs flex-shrink-0 border-t border-outline-variant" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom,0px));">
+        <button id="cartSubmitBtn"
+           class="w-full min-h-[52px] rounded-full text-white flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+           style="background:#7c5639; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:15px; box-shadow:0 4px 16px rgba(124,86,57,0.35);">
+          <span class="material-symbols-outlined text-[20px]">send</span>
+          Đặt hàng
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Success + VietQR -->
+    <div id="cartStep3" class="flex flex-col flex-1 min-h-0 hidden">
+      <div class="flex-1 overflow-y-auto px-space-md py-space-sm flex flex-col items-center gap-4 text-center">
+        <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mt-4">
+          <span class="material-symbols-outlined text-[32px] text-green-600">check_circle</span>
+        </div>
+        <div>
+          <p class="text-headline-sm text-on-surface">Đặt hàng thành công!</p>
+          <p id="successOrderId" class="text-body-sm text-on-surface-variant mt-1"></p>
+        </div>
+        <div class="w-full bg-surface-container rounded-xl p-4 flex flex-col items-center gap-3">
+          <p class="text-body-md text-on-surface font-medium">Quét mã để thanh toán</p>
+          <p class="text-body-sm text-on-surface-variant">Chuyển khoản ngân hàng qua VietQR</p>
+          <img id="vietqrImg" src="" alt="VietQR thanh toán" class="w-56 h-56 rounded-lg object-contain border border-outline-variant bg-white"/>
+          <p id="vietqrAmount" class="text-headline-sm text-secondary"></p>
+          <p class="text-body-sm text-on-surface-variant">Nội dung CK: <span id="vietqrDesc" class="font-medium text-on-surface"></span></p>
+        </div>
+        <p class="text-body-sm text-on-surface-variant px-2">Sau khi thanh toán, chúng tôi sẽ xác nhận và giao hàng sớm nhất có thể.</p>
+      </div>
+      <div class="px-space-md pt-space-sm pb-space-md flex-shrink-0 border-t border-outline-variant" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom,0px));">
+        <button id="cartDoneBtn"
+           class="w-full min-h-[48px] rounded-full bg-surface-container text-on-surface flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
+           style="font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:14px;">
+          <span class="material-symbols-outlined text-[18px]">home</span>
+          Về trang chủ
+        </button>
+      </div>
     </div>
   </div>
 
@@ -981,18 +1053,40 @@
     // ── Cart logic ──
     const cart = {}; // { "Item Name": { price, qty } }
 
-    const cartBtn      = document.getElementById('cartBtn');
-    const cartCount    = document.getElementById('cartCount');
-    const cartSheet    = document.getElementById('cartSheet');
-    const cartBackdrop = document.getElementById('cartBackdrop');
-    const cartClose    = document.getElementById('cartClose');
-    const cartItems    = document.getElementById('cartItems');
-    const cartTotal    = document.getElementById('cartTotal');
-    const cartZaloBtn  = document.getElementById('cartZaloBtn');
-    const cartClear    = document.getElementById('cartClear');
+    const cartBtn        = document.getElementById('cartBtn');
+    const cartCount      = document.getElementById('cartCount');
+    const cartSheet      = document.getElementById('cartSheet');
+    const cartBackdrop   = document.getElementById('cartBackdrop');
+    const cartClose      = document.getElementById('cartClose');
+    const cartBack       = document.getElementById('cartBack');
+    const cartTitle      = document.getElementById('cartTitle');
+    const cartItems      = document.getElementById('cartItems');
+    const cartTotal      = document.getElementById('cartTotal');
+    const cartClear      = document.getElementById('cartClear');
+    const cartNextBtn    = document.getElementById('cartNextBtn');
+    const cartStep1      = document.getElementById('cartStep1');
+    const cartStep2      = document.getElementById('cartStep2');
+    const cartStep3      = document.getElementById('cartStep3');
+    const orderSummary   = document.getElementById('orderSummary');
+    const fieldName      = document.getElementById('fieldName');
+    const fieldPhone     = document.getElementById('fieldPhone');
+    const fieldAddress   = document.getElementById('fieldAddress');
+    const formError      = document.getElementById('formError');
+    const cartSubmitBtn  = document.getElementById('cartSubmitBtn');
+    const successOrderId = document.getElementById('successOrderId');
+    const vietqrImg      = document.getElementById('vietqrImg');
+    const vietqrAmount   = document.getElementById('vietqrAmount');
+    const vietqrDesc     = document.getElementById('vietqrDesc');
+    const cartDoneBtn    = document.getElementById('cartDoneBtn');
 
     function totalQty() {
       return Object.values(cart).reduce((s, v) => s + v.qty, 0);
+    }
+
+    function computeTotal() {
+      return Object.values(cart).reduce((s, { price, qty }) => {
+        return s + parseInt(price.replace(/[^0-9]/g, '')) * qty;
+      }, 0);
     }
 
     function updateCartBtn() {
@@ -1014,16 +1108,9 @@
         cart[name] = { price, qty: 1 };
       }
       updateCartBtn();
-      // Bump animation
       cartBtn.classList.remove('bump');
       void cartBtn.offsetWidth;
       cartBtn.classList.add('bump');
-    }
-
-    function removeFromCart(name) {
-      delete cart[name];
-      updateCartBtn();
-      renderCartItems();
     }
 
     function changeQty(name, delta) {
@@ -1042,12 +1129,14 @@
             <span class="text-body-md">Giỏ hàng trống</span>
           </div>`;
         cartTotal.textContent = '';
-        cartZaloBtn.dataset.order = '';
-        cartZaloBtn.href = 'https://zaloapp.com';
+        cartNextBtn.disabled = true;
+        cartNextBtn.style.opacity = '0.5';
         return;
       }
 
-      // Render rows
+      cartNextBtn.disabled = false;
+      cartNextBtn.style.opacity = '1';
+
       cartItems.innerHTML = entries.map(([name, { price, qty }]) => `
         <div class="flex items-center justify-between gap-2 py-2 border-b border-outline-variant last:border-0">
           <div class="flex flex-col min-w-0 flex-1">
@@ -1068,29 +1157,27 @@
         </div>
       `).join('');
 
-      // Attach qty button listeners
       cartItems.querySelectorAll('.qty-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          changeQty(btn.dataset.name, parseInt(btn.dataset.delta));
-        });
+        btn.addEventListener('click', () => changeQty(btn.dataset.name, parseInt(btn.dataset.delta)));
       });
 
-      // Compute total (prices like "25,000đ")
-      let total = 0;
-      entries.forEach(([, { price, qty }]) => {
-        const num = parseInt(price.replace(/[^0-9]/g, ''));
-        total += num * qty;
-      });
-      cartTotal.textContent = total.toLocaleString('vi-VN') + 'đ';
+      cartTotal.textContent = computeTotal().toLocaleString('vi-VN') + 'đ';
+    }
 
-      // Build Zalo message
-      const lines = entries.map(([name, { price, qty }]) => `- ${name} x${qty} (${price})`).join('\n');
-      const msg = `Xin chào! Em muốn đặt hàng từ 168 Cafe:\n${lines}\nTổng: ${cartTotal.textContent}\nĐịa chỉ giao: `;
-      cartZaloBtn.dataset.order = msg;
+    function showStep(step) {
+      cartStep1.classList.toggle('hidden', step !== 1);
+      cartStep2.classList.toggle('hidden', step !== 2);
+      cartStep3.classList.toggle('hidden', step !== 3);
+      cartBack.classList.toggle('hidden', step === 1);
+      cartBack.classList.toggle('flex', step !== 1);
+      if (step === 1) cartTitle.textContent = 'Giỏ hàng';
+      if (step === 2) cartTitle.textContent = 'Thông tin giao hàng';
+      if (step === 3) cartTitle.textContent = 'Đặt hàng thành công';
     }
 
     function openCart() {
       renderCartItems();
+      showStep(1);
       cartBackdrop.classList.remove('hidden');
       requestAnimationFrame(() => {
         cartBackdrop.style.opacity = '1';
@@ -1106,16 +1193,81 @@
       document.body.style.overflow = '';
     }
 
-    cartBtn.addEventListener('click', openCart);
-    cartClose.addEventListener('click', closeCart);
-    cartBackdrop.addEventListener('click', closeCart);
+    // Next: items → form
+    cartNextBtn.addEventListener('click', () => {
+      if (totalQty() === 0) return;
+      // Populate order summary
+      const lines = Object.entries(cart)
+        .map(([name, { price, qty }]) => `${name} x${qty}`)
+        .join(' · ');
+      orderSummary.textContent = `${lines} — Tổng: ${computeTotal().toLocaleString('vi-VN')}đ`;
+      formError.classList.add('hidden');
+      showStep(2);
+    });
+
+    // Back: form → items
+    cartBack.addEventListener('click', () => showStep(1));
+
+    // Submit order
+    cartSubmitBtn.addEventListener('click', async () => {
+      const name    = fieldName.value.trim();
+      const phone   = fieldPhone.value.trim();
+      const address = fieldAddress.value.trim();
+
+      if (!name || !phone || !address) {
+        formError.textContent = 'Vui lòng điền đầy đủ họ tên, số điện thoại và địa chỉ.';
+        formError.classList.remove('hidden');
+        return;
+      }
+
+      formError.classList.add('hidden');
+      cartSubmitBtn.disabled = true;
+      cartSubmitBtn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span> Đang xử lý…`;
+
+      const items = Object.entries(cart).map(([name, { price, qty }]) => ({ name, price, qty }));
+      const totalAmount = computeTotal();
+
+      try {
+        const res = await fetch('/api/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ customerName: name, phone, address, items, totalAmount }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.success) throw new Error(data.error || 'Lỗi không xác định');
+
+        // Show success + VietQR
+        successOrderId.textContent = `Mã đơn: ${data.orderId}`;
+        vietqrImg.src = data.vietqrUrl;
+        vietqrAmount.textContent = totalAmount.toLocaleString('vi-VN') + 'đ';
+        vietqrDesc.textContent = data.paymentDesc;
+        showStep(3);
+
+        // Clear cart
+        Object.keys(cart).forEach(k => delete cart[k]);
+        updateCartBtn();
+
+      } catch (err) {
+        formError.textContent = 'Đặt hàng thất bại: ' + err.message + '. Vui lòng thử lại.';
+        formError.classList.remove('hidden');
+      } finally {
+        cartSubmitBtn.disabled = false;
+        cartSubmitBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">send</span> Đặt hàng`;
+      }
+    });
+
     cartClear.addEventListener('click', () => {
       Object.keys(cart).forEach(k => delete cart[k]);
       updateCartBtn();
       renderCartItems();
     });
 
-    // Expose addToCart globally so menu cards can call it
+    cartBtn.addEventListener('click', openCart);
+    cartClose.addEventListener('click', closeCart);
+    cartBackdrop.addEventListener('click', closeCart);
+    cartDoneBtn.addEventListener('click', closeCart);
+
     window.addToCart = addToCart;
   </script>
 

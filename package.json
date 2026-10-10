@@ -1,0 +1,15 @@
+{
+  "name": "cafe168",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx wrangler pages dev . --d1=DB",
+    "deploy": "npx wrangler pages deploy .",
+    "db:create": "npx wrangler d1 create cafe168-db",
+    "db:migrate": "npx wrangler d1 execute cafe168-db --file=schema.sql",
+    "db:migrate:remote": "npx wrangler d1 execute cafe168-db --file=schema.sql --remote"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
