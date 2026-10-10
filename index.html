@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html class="h-full" lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+  <title>168 Cafe – Coffee 168 Trảng Bom, Đồng Nai</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "#fff8f2",
+            "surface-dim": "#e0d9d0",
+            "surface-bright": "#fff8f2",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#faf2e9",
+            "surface-container": "#f5ede4",
+            "surface-container-high": "#efe7de",
+            "surface-container-highest": "#e9e1d8",
+            "on-surface": "#1e1b16",
+            "on-surface-variant": "#504440",
+            "outline": "#827470",
+            "outline-variant": "#d3c3be",
+            "primary": "#090100",
+            "on-primary": "#ffffff",
+            "primary-container": "#2c1810",
+            "on-primary-container": "#9e7e73",
+            "inverse-primary": "#e3bfb2",
+            "secondary": "#7c5639",
+            "on-secondary": "#ffffff",
+            "secondary-container": "#fecaa5",
+            "on-secondary-container": "#795336",
+            "tertiary-fixed-dim": "#f8bb70",
+            "background": "#fff8f2",
+            "on-background": "#1e1b16",
+            "surface-variant": "#e9e1d8",
+            "inverse-surface": "#34302a",
+            "inverse-on-surface": "#f8efe6",
+          },
+          borderRadius: {
+            "sm": "0.25rem",
+            "DEFAULT": "0.5rem",
+            "md": "0.75rem",
+            "lg": "1rem",
+            "xl": "1.5rem",
+            "full": "9999px",
+          },
+          fontFamily: {
+            "sans": ["Be Vietnam Pro", "sans-serif"],
+            "label": ["Plus Jakarta Sans", "sans-serif"],
+          },
+          fontSize: {
+            "headline-xl": ["32px", { lineHeight: "40px", fontWeight: "700" }],
+            "headline-lg": ["26px", { lineHeight: "34px", fontWeight: "700" }],
+            "headline-md": ["22px", { lineHeight: "28px", fontWeight: "600" }],
+            "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }],
+            "label-lg": ["15px", { lineHeight: "20px", fontWeight: "600" }],
+            "label-md": ["13px", { lineHeight: "18px", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "14px", fontWeight: "600" }],
+          },
+          spacing: {
+            "gutter": "1rem",
+            "gutter-desktop": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.25rem",
+          },
+          boxShadow: {
+            "card": "0 4px 20px -2px rgba(44,24,16,0.06), 0 2px 6px -1px rgba(44,24,16,0.03)",
+            "float": "0 12px 32px -4px rgba(44,24,16,0.12), 0 4px 12px -2px rgba(44,24,16,0.05)",
+            "nav": "0 -4px 20px -2px rgba(44,24,16,0.08)",
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @layer base {
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body { width: 100%; margin: 0; padding: 0; scroll-behavior: smooth; }
+      body { overscroll-behavior-y: none; }
+      .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .pt-safe { padding-top: env(safe-area-inset-top, 0px); }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* Category filter active state */
+    .filter-chip.active {
+      background-color: #2c1810;
+      color: #fff8f2;
+    }
+    .filter-chip:not(.active) {
+      background-color: #f5ede4;
+      color: #1e1b16;
+    }
+
+    /* Skeleton loading animation */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #f5ede4 25%, #efe7de 50%, #f5ede4 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 0.5rem;
+    }
+
+    /* Lightbox open */
+    body.lightbox-open { overflow: hidden; }
+
+    /* Desktop: hide bottom nav, show sidebar */
+    @media (min-width: 1024px) {
+      .bottom-nav { display: none !important; }
+    }
+
+    /* Desktop sidebar sticky */
+    .desktop-sidebar {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .desktop-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: sticky;
+        top: 7rem;
+        align-self: flex-start;
+        width: 320px;
+        flex-shrink: 0;
+      }
+    }
+
+    /* Desktop content wrapper */
+    .page-content {
+      width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .page-content {
+        flex: 1;
+        min-width: 0;
+      }
+    }
+
+    /* Desktop layout wrapper */
+    .desktop-layout {
+      display: block;
+    }
+    @media (min-width: 1024px) {
+      .desktop-layout {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 2rem;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+    }
+
+    /* Header inner max-width */
+    .header-inner {
+      width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .header-inner {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 2.5rem;
+      }
+      .header-inner-pad {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-full bg-surface text-on-surface antialiased" style="font-family: 'Be Vietnam Pro', sans-serif;">
+
+  <!-- ═══════════════════════════════════════
+       HEADER (fixed top)
+  ════════════════════════════════════════ -->
+  <header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+    <!-- Top bar: logo + actions -->
+    <div class="header-inner">
+      <div class="h-16 px-gutter header-inner-pad flex items-center justify-between gap-space-sm">
+        <div class="flex items-center gap-space-sm min-w-0">
+          <!-- Logo placeholder: replace src with your logo file -->
+          <div class="h-9 w-9 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-inverse-primary text-[20px]">coffee</span>
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-headline-sm text-primary tracking-tight truncate leading-tight" style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700;">168 CAFE</span>
+            <span class="text-label-sm text-on-surface-variant truncate uppercase tracking-wider" style="font-family: 'Plus Jakarta Sans', sans-serif;">Trảng Bom, Đồng Nai</span>
+          </div>
+        </div>
+        <!-- Desktop nav links (hidden on mobile) -->
+        <div class="hidden lg:flex items-center gap-space-sm">
+          <a href="#hero"     class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Trang chủ</a>
+          <a href="#menu"     class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Thực đơn</a>
+          <a href="#ordering" class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Đặt hàng</a>
+          <a href="#contact"  class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Liên hệ</a>
+        </div>
+        <div class="flex items-center gap-space-sm flex-shrink-0">
+          <a href="tel:0944939184" aria-label="Gọi ngay"
+             class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors active:scale-95">
+            <span class="material-symbols-outlined text-[20px]">call</span>
+          </a>
+          <!-- Desktop order button -->
+          <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+             class="hidden lg:flex min-h-[40px] px-space-md rounded-full text-white items-center gap-2 text-label-md transition-all hover:opacity-90 active:scale-95"
+             style="background: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+            <span class="material-symbols-outlined text-[18px]">chat</span>
+            Đặt qua Zalo
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav chips (mobile only) -->
+    <div class="lg:hidden w-full overflow-x-auto no-scrollbar px-gutter py-space-xs bg-surface-container/50">
+      <div class="flex items-center gap-space-sm whitespace-nowrap min-w-max">
+        <a href="#hero"     class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all active:scale-95" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Trang chủ</a>
+        <a href="#menu"     class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all active:scale-95" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Thực đơn</a>
+        <a href="#ordering" class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all active:scale-95" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Đặt hàng</a>
+        <a href="#contact"  class="nav-chip px-space-md py-1.5 rounded-full text-label-md transition-all active:scale-95" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Liên hệ</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════ -->
+  <main class="flex-1 flex flex-col w-full pt-28 pb-36 lg:pb-10 bg-surface">
+    <div class="desktop-layout">
+
+    <!-- ════ PAGE CONTENT (left on desktop) ════ -->
+    <div class="page-content">
+
+    <!-- ── 1. HERO SECTION ── -->
+    <section id="hero" class="relative w-full px-gutter lg:px-0 pt-space-xs pb-space-lg flex flex-col gap-space-md">
+
+      <!-- Hero Card -->
+      <div class="relative w-full rounded-xl overflow-hidden bg-primary-container text-surface-bright min-h-[420px] lg:min-h-[520px] flex flex-col justify-end p-space-md lg:p-space-xl"
+           style="box-shadow: 0 12px 32px -4px rgba(44,24,16,0.18);">
+        <!-- Hero slideshow -->
+        <div class="absolute inset-0 z-0" id="heroSlideshow">
+          <div class="hero-slide absolute inset-0 transition-opacity duration-1000" style="opacity:1;">
+            <img src="cafe168-1.jpeg" class="w-full h-full object-cover" alt="168 Cafe">
+          </div>
+          <div class="hero-slide absolute inset-0 transition-opacity duration-1000" style="opacity:0;">
+            <img src="cafe168-2.jpeg" class="w-full h-full object-cover" alt="168 Cafe">
+          </div>
+          <div class="hero-slide absolute inset-0 transition-opacity duration-1000" style="opacity:0;">
+            <img src="cafe168-3.jpeg" class="w-full h-full object-cover" alt="168 Cafe">
+          </div>
+          <!-- Scrim overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-primary-container via-primary-container/50 to-primary-container/10"></div>
+        </div>
+
+        <!-- Slide dots -->
+        <div class="absolute top-3 right-3 z-20 flex items-center gap-1.5">
+          <button class="hero-dot w-2 h-2 rounded-full transition-all" style="background:rgba(255,248,242,0.9); width:1.5rem;" data-index="0" aria-label="Ảnh 1"></button>
+          <button class="hero-dot w-2 h-2 rounded-full transition-all" style="background:rgba(255,248,242,0.4);" data-index="1" aria-label="Ảnh 2"></button>
+          <button class="hero-dot w-2 h-2 rounded-full transition-all" style="background:rgba(255,248,242,0.4);" data-index="2" aria-label="Ảnh 3"></button>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 flex flex-col gap-space-sm lg:gap-space-md lg:max-w-xl">
+          <div class="flex flex-wrap items-center gap-space-xs">
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-bright/15 backdrop-blur-md text-surface-bright text-label-sm" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
+              ☕ Robusta &amp; Arabica nguyên chất
+            </span>
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-sm" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
+              <span class="material-symbols-outlined text-[13px]">bolt</span>
+              Giao nhanh 15–30 phút
+            </span>
+          </div>
+
+          <h1 class="text-headline-lg lg:text-headline-xl text-surface-bright leading-tight tracking-tight" style="font-weight: 700;">
+            Cà Phê Ngon – Giá Bình Dân<br>Tại 168 Cafe
+          </h1>
+          <p class="text-body-md lg:text-body-lg leading-relaxed" style="color: rgba(255,248,242,0.75);">
+            Cafe, trà, nước ép, yogurt – đủ vị cho cả nhà. Đặt hàng qua Zalo, giao nhanh tận nơi tại Trảng Bom, Đồng Nai.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-space-xs pt-space-xs">
+            <a href="#menu"
+               class="w-full sm:w-auto min-h-[48px] px-space-lg rounded-full bg-surface-bright text-primary flex items-center justify-center gap-space-xs text-label-lg active:scale-[0.98] transition-transform"
+               style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 4px 16px rgba(44,24,16,0.2);">
+              <span class="material-symbols-outlined text-[20px]">restaurant_menu</span>
+              Xem Menu
+            </a>
+            <a href="#ordering"
+               class="w-full sm:w-auto min-h-[48px] px-space-lg rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center gap-space-xs text-label-lg active:scale-[0.98] transition-transform"
+               style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px;">
+              <span class="material-symbols-outlined text-[20px]">moped</span>
+              Đặt Hàng Ngay
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Highlights bar -->
+      <div class="grid grid-cols-3 gap-2 p-3 rounded-xl bg-surface-container text-on-surface" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+        <div class="flex flex-col items-center text-center p-1 gap-0.5">
+          <span class="material-symbols-outlined text-secondary text-[22px]">local_cafe</span>
+          <span class="text-label-md" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Pha Phin Mộc</span>
+          <span class="text-body-sm text-on-surface-variant">Đậm vị truyền thống</span>
+        </div>
+        <div class="flex flex-col items-center text-center p-1 gap-0.5 border-x border-outline-variant">
+          <span class="material-symbols-outlined text-secondary text-[22px]">local_fire_department</span>
+          <span class="text-label-md" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Rang Mới</span>
+          <span class="text-body-sm text-on-surface-variant">Mỗi tuần một mẻ</span>
+        </div>
+        <div class="flex flex-col items-center text-center p-1 gap-0.5">
+          <span class="material-symbols-outlined text-secondary text-[22px]">eco</span>
+          <span class="text-label-md" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Nguyên Chất</span>
+          <span class="text-body-sm text-on-surface-variant">100% tự nhiên</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 2. MENU SECTION ── -->
+    <section id="menu" class="w-full px-gutter lg:px-0 py-space-lg flex flex-col gap-space-md">
+
+      <!-- Section header -->
+      <div class="flex flex-col gap-1">
+        <div class="inline-flex items-center gap-1.5 text-secondary text-label-md uppercase tracking-wider" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+          <span class="material-symbols-outlined text-[16px]">menu_book</span>
+          Hương Vị Đặc Sản
+        </div>
+        <h2 class="text-headline-md text-on-surface tracking-tight">Thực Đơn Quán</h2>
+        <p class="text-body-sm text-on-surface-variant">
+          Cafe, trà, nước ép và yogurt – đa dạng thức uống cho cả gia đình tại 168 Nguyễn Huệ, Trảng Bom.
+        </p>
+      </div>
+
+      <!-- Category filter chips -->
+      <div id="filterChips" class="flex items-center gap-space-sm overflow-x-auto no-scrollbar pb-1">
+        <!-- Populated by JS -->
+        <div class="skeleton h-8 w-24 rounded-full flex-shrink-0"></div>
+        <div class="skeleton h-8 w-28 rounded-full flex-shrink-0"></div>
+        <div class="skeleton h-8 w-20 rounded-full flex-shrink-0"></div>
+        <div class="skeleton h-8 w-24 rounded-full flex-shrink-0"></div>
+        <div class="skeleton h-8 w-20 rounded-full flex-shrink-0"></div>
+      </div>
+
+      <!-- Menu cards grid — populated by JS -->
+      <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-sm">
+        <!-- Skeleton placeholders -->
+        <div class="p-space-md rounded-xl bg-surface-container-lowest" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+          <div class="skeleton h-5 w-2/3 mb-2"></div>
+          <div class="skeleton h-4 w-full mb-1"></div>
+          <div class="skeleton h-4 w-4/5 mb-3"></div>
+          <div class="flex justify-between items-center">
+            <div class="skeleton h-6 w-16 rounded-full"></div>
+            <div class="skeleton h-8 w-24 rounded-full"></div>
+          </div>
+        </div>
+        <div class="p-space-md rounded-xl bg-surface-container-lowest" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+          <div class="skeleton h-5 w-3/4 mb-2"></div>
+          <div class="skeleton h-4 w-full mb-1"></div>
+          <div class="skeleton h-4 w-3/5 mb-3"></div>
+          <div class="flex justify-between items-center">
+            <div class="skeleton h-6 w-16 rounded-full"></div>
+            <div class="skeleton h-8 w-24 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notice callout -->
+      <div class="p-3.5 rounded-xl bg-surface-container flex items-start gap-3">
+        <span class="material-symbols-outlined text-secondary text-[22px] flex-shrink-0 mt-0.5">info</span>
+        <p class="text-body-sm text-on-surface-variant">
+          <strong class="text-on-surface">Lưu ý:</strong> Thực đơn được cập nhật thường xuyên. Quý khách vui lòng nhắn tin qua Zalo hoặc Fanpage để được tư vấn món mới và điều chỉnh độ ngọt/đá phù hợp khẩu vị!
+        </p>
+      </div>
+    </section>
+
+    <!-- ── 3. ORDERING SECTION ── -->
+    <section id="ordering" class="w-full px-gutter lg:px-0 py-space-lg flex flex-col gap-space-md bg-surface-container-low/60 lg:bg-transparent lg:rounded-xl">
+
+      <div class="flex flex-col gap-1">
+        <div class="inline-flex items-center gap-1.5 text-secondary text-label-md uppercase tracking-wider" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+          <span class="material-symbols-outlined text-[16px]">takeout_dining</span>
+          Tiện Lợi • Tức Thì
+        </div>
+        <h2 class="text-headline-md text-on-surface tracking-tight">Hướng Dẫn Đặt Mang Về</h2>
+        <p class="text-body-sm text-on-surface-variant">
+          Đặt hàng trực tiếp qua Zalo hoặc Facebook không cần tạo tài khoản. Nhân viên nhận đơn trong vòng 2 phút.
+        </p>
+      </div>
+
+      <!-- Steps -->
+      <div class="flex flex-col gap-space-sm">
+        <div class="p-space-md rounded-xl bg-surface-container-lowest flex items-start gap-space-md" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+          <div class="w-10 h-10 rounded-full bg-primary-container text-surface-bright flex items-center justify-center text-headline-sm flex-shrink-0" style="font-weight: 700;">1</div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-headline-sm text-on-surface">Xem menu &amp; chọn món</span>
+            <p class="text-body-sm text-on-surface-variant mt-1">Chọn thức uống yêu thích từ thực đơn bên trên hoặc chụp ảnh gửi trực tiếp vào tin nhắn cho quán.</p>
+          </div>
+        </div>
+        <div class="p-space-md rounded-xl bg-surface-container-lowest flex items-start gap-space-md" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+          <div class="w-10 h-10 rounded-full bg-primary-container text-surface-bright flex items-center justify-center text-headline-sm flex-shrink-0" style="font-weight: 700;">2</div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-headline-sm text-on-surface">Gửi tin nhắn qua Zalo / Facebook</span>
+            <p class="text-body-sm text-on-surface-variant mt-1">Nhắn địa chỉ nhận hàng, số điện thoại và ghi chú khẩu vị (ít ngọt, sữa riêng, nhiều đá, uống nóng).</p>
+          </div>
+        </div>
+        <div class="p-space-md rounded-xl bg-surface-container-lowest flex items-start gap-space-md" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+          <div class="w-10 h-10 rounded-full bg-primary-container text-surface-bright flex items-center justify-center text-headline-sm flex-shrink-0" style="font-weight: 700;">3</div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-headline-sm text-on-surface">Xác nhận đơn &amp; Giao hàng tận nơi</span>
+            <p class="text-body-sm text-on-surface-variant mt-1">Quán chốt đơn tức thì, đóng gói kỹ lưỡng và shipper giao trong 15–30 phút để ly cà phê luôn trọn vị ngon.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA buttons — replace href with your real Zalo/Messenger links -->
+      <div class="flex flex-col gap-space-xs pt-space-xs">
+        <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+           class="w-full min-h-[52px] px-space-md rounded-full text-white flex items-center justify-between active:scale-[0.98] transition-transform"
+           style="background: #0068FF; box-shadow: 0 6px 20px rgba(0,104,255,0.35);">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2);">
+              <span class="material-symbols-outlined text-[22px]">chat</span>
+            </div>
+            <div class="flex flex-col text-left">
+              <span class="text-label-lg" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px;">Đặt hàng qua Zalo</span>
+              <span class="text-body-sm" style="color: rgba(255,255,255,0.8);">Zalo: Huongnguyen</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[20px] pr-1">arrow_forward</span>
+        </a>
+
+        <a href="https://m.me/huongstoretb" target="_blank" rel="noopener noreferrer"
+           class="w-full min-h-[52px] px-space-md rounded-full text-white flex items-center justify-between active:scale-[0.98] transition-transform"
+           style="background: #0084FF; box-shadow: 0 6px 20px rgba(0,132,255,0.35);">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-full flex items-center justify-center" style="background: rgba(255,255,255,0.2);">
+              <span class="material-symbols-outlined text-[22px]">forum</span>
+            </div>
+            <div class="flex flex-col text-left">
+              <span class="text-label-lg" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px;">Đặt hàng qua Facebook</span>
+              <span class="text-body-sm" style="color: rgba(255,255,255,0.8);">Nhắn tin qua Messenger</span>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[20px] pr-1">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Hotline banner -->
+      <a href="tel:0944939184"
+         class="w-full p-4 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-between active:scale-[0.99] transition-transform"
+         style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-primary-container text-surface-bright flex items-center justify-center flex-shrink-0">
+            <span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+          </div>
+        </div>
+        <span class="text-label-sm bg-primary-container text-surface-bright px-3 py-1.5 rounded-full flex-shrink-0" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
+          Bấm gọi ngay
+        </span>
+      </a>
+    </section>
+
+    <!-- ── 4. CONTACT / FOOTER SECTION ── -->
+    <footer id="contact" class="w-full px-gutter lg:px-0 pt-space-lg pb-space-xl flex flex-col gap-space-md">
+
+      <div class="flex flex-col gap-1">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[24px]">coffee</span>
+          <h2 class="text-headline-md text-on-surface">168 Cafe – Coffee 168</h2>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">
+          168 Nguyễn Huệ, Trảng Bom, Đồng Nai – Cà phê ngon, giá bình dân, phục vụ tận tâm.
+        </p>
+      </div>
+
+      <!-- Info cards -->
+      <div class="flex flex-col gap-2.5">
+        <!-- Address -->
+        <div class="p-3.5 rounded-xl bg-surface-container flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-[22px] flex-shrink-0 mt-0.5">location_on</span>
+          <div class="flex flex-col">
+            <span class="text-label-md text-on-surface" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Địa chỉ quán</span>
+            <span class="text-body-sm text-on-surface-variant mt-0.5">168 Nguyễn Huệ, Trảng Bom, Đồng Nai</span>
+          </div>
+        </div>
+        <!-- Hours -->
+        <div class="p-3.5 rounded-xl bg-surface-container flex items-start gap-3">
+          <span class="material-symbols-outlined text-secondary text-[22px] flex-shrink-0 mt-0.5">schedule</span>
+          <div class="flex flex-col">
+            <span class="text-label-md text-on-surface" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Giờ mở cửa</span>
+            <!-- Replace with your real hours -->
+            <span class="text-body-sm text-on-surface-variant mt-0.5">07:00 – 22:00 hàng ngày (Kể cả ngày lễ &amp; Tết)</span>
+          </div>
+        </div>
+        <!-- Phone -->
+        <div class="p-3.5 rounded-xl bg-surface-container flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-secondary text-[22px] flex-shrink-0">call</span>
+            <div class="flex flex-col">
+              <span class="text-label-md text-on-surface" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">Điện thoại liên hệ</span>
+              <a href="tel:0944939184" class="block text-body-sm text-secondary hover:underline">0944 939 184</a>
+              <a href="tel:0902366136" class="block text-body-sm text-secondary hover:underline">0902 366 136</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Google Maps button — replace href with your real Maps link -->
+      <a href="https://maps.app.goo.gl/XQh4i4gr9j6t7A9y8" target="_blank" rel="noopener noreferrer"
+         class="w-full min-h-[48px] px-space-md rounded-full bg-surface-container-high text-on-surface flex items-center justify-center gap-2 text-label-md active:scale-[0.98] transition-transform"
+         style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px; box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+        <span class="material-symbols-outlined text-secondary text-[20px]">map</span>
+        Xem chỉ đường trên Google Maps
+      </a>
+
+      <!-- Social links -->
+      <div class="flex flex-col items-center gap-space-sm pt-space-xs">
+        <span class="text-label-sm text-on-surface-variant uppercase tracking-wider" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">Kết nối cùng 168 Cafe</span>
+        <div class="flex items-center gap-3">
+          <a href="https://zalo.me/huongnguyen" aria-label="Zalo" target="_blank" rel="noopener noreferrer"
+             class="w-11 h-11 rounded-full bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors"
+             style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+            <span class="text-label-md font-bold" style="color: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px; font-weight: 700;">Zalo</span>
+          </a>
+          <a href="https://www.facebook.com/huongstoretb/" aria-label="Facebook Fanpage" target="_blank" rel="noopener noreferrer"
+             class="w-11 h-11 rounded-full bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors"
+             style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+            <span class="material-symbols-outlined text-[22px]" style="color: #0084FF;">public</span>
+          </a>
+          <a href="https://instagram.com/168cafe" aria-label="Instagram" target="_blank" rel="noopener noreferrer"
+             class="w-11 h-11 rounded-full bg-surface-container text-on-surface flex items-center justify-center hover:bg-surface-container-high transition-colors"
+             style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+            <span class="material-symbols-outlined text-secondary text-[22px]">photo_camera</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer note -->
+      <div class="text-center pt-space-sm pb-space-md">
+        <p class="text-body-sm text-on-surface-variant italic">
+          "Cảm ơn quý khách đã ghé thăm 168 Cafe! Chúc bạn một ngày tràn đầy năng lượng."
+        </p>
+        <p class="text-label-sm mt-2" style="color: rgba(80,68,64,0.6); font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
+          © 2025 168 Cafe • All Rights Reserved
+        </p>
+      </div>
+    </footer>
+
+    </div><!-- end .page-content -->
+
+    <!-- ════ DESKTOP SIDEBAR (right, sticky) ════ -->
+    <aside class="desktop-sidebar">
+
+      <!-- Order card -->
+      <div class="rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-sm" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.08);">
+        <div class="flex items-center gap-2 pb-1 border-b border-outline-variant">
+          <span class="material-symbols-outlined text-secondary text-[20px]">shopping_bag</span>
+          <span class="text-headline-sm text-on-surface">Đặt hàng ngay</span>
+        </div>
+        <p class="text-body-sm text-on-surface-variant">Nhắn tin trực tiếp – nhân viên nhận đơn trong 2 phút.</p>
+        <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+           class="w-full min-h-[48px] px-space-md rounded-full text-white flex items-center justify-center gap-2 text-label-lg transition-all hover:opacity-90 active:scale-[0.98]"
+           style="background: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 6px 20px rgba(0,104,255,0.3);">
+          <span class="material-symbols-outlined text-[20px]">chat</span>
+          Đặt qua Zalo
+        </a>
+        <a href="https://m.me/huongstoretb" target="_blank" rel="noopener noreferrer"
+           class="w-full min-h-[48px] px-space-md rounded-full text-white flex items-center justify-center gap-2 text-label-lg transition-all hover:opacity-90 active:scale-[0.98]"
+           style="background: #0084FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 6px 20px rgba(0,132,255,0.25);">
+          <span class="material-symbols-outlined text-[20px]">forum</span>
+          Đặt qua Messenger
+        </a>
+        <a href="tel:0944939184"
+           class="w-full min-h-[44px] px-space-md rounded-full bg-surface-container text-on-surface flex items-center justify-center gap-2 text-label-md transition-all hover:bg-surface-container-high active:scale-[0.98]"
+           style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+          <span class="material-symbols-outlined text-secondary text-[18px]">phone_in_talk</span>
+          0944 939 184
+        </a>
+        <a href="tel:0902366136"
+           class="w-full min-h-[44px] px-space-md rounded-full bg-surface-container text-on-surface flex items-center justify-center gap-2 text-label-md transition-all hover:bg-surface-container-high active:scale-[0.98]"
+           style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+          <span class="material-symbols-outlined text-secondary text-[18px]">phone_in_talk</span>
+          0902 366 136
+        </a>
+      </div>
+
+      <!-- Store info card -->
+      <div class="rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-space-sm" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.08);">
+        <div class="flex items-center gap-2 pb-1 border-b border-outline-variant">
+          <span class="material-symbols-outlined text-secondary text-[20px]">storefront</span>
+          <span class="text-headline-sm text-on-surface">Thông tin quán</span>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-secondary text-[18px] flex-shrink-0 mt-0.5">location_on</span>
+          <span class="text-body-sm text-on-surface-variant">168 Nguyễn Huệ, Trảng Bom, Đồng Nai</span>
+        </div>
+        <div class="flex items-start gap-2.5">
+          <span class="material-symbols-outlined text-secondary text-[18px] flex-shrink-0 mt-0.5">schedule</span>
+          <span class="text-body-sm text-on-surface-variant">07:00 – 22:00 hàng ngày</span>
+        </div>
+        <a href="https://maps.app.goo.gl/XQh4i4gr9j6t7A9y8" target="_blank" rel="noopener noreferrer"
+           class="w-full min-h-[40px] px-space-md rounded-full bg-surface-container text-on-surface flex items-center justify-center gap-2 text-label-md transition-all hover:bg-surface-container-high"
+           style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+          <span class="material-symbols-outlined text-secondary text-[18px]">map</span>
+          Xem trên Google Maps
+        </a>
+      </div>
+
+      <!-- Loyalty/highlights card -->
+      <div class="rounded-xl overflow-hidden bg-primary-container text-surface-bright p-space-md flex flex-col gap-space-sm" style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.18);">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-tertiary-fixed-dim text-[20px]">star</span>
+          <span class="text-headline-sm">Đặc quyền khách hàng</span>
+        </div>
+        <ul class="flex flex-col gap-1.5">
+          <li class="flex items-center gap-2 text-body-sm" style="color: rgba(255,248,242,0.85);">
+            <span class="material-symbols-outlined text-[14px]" style="color: #f8bb70;">check_circle</span>
+            Tích điểm mỗi đơn hàng
+          </li>
+          <li class="flex items-center gap-2 text-body-sm" style="color: rgba(255,248,242,0.85);">
+            <span class="material-symbols-outlined text-[14px]" style="color: #f8bb70;">check_circle</span>
+            Miễn phí ship đơn từ 100k
+          </li>
+          <li class="flex items-center gap-2 text-body-sm" style="color: rgba(255,248,242,0.85);">
+            <span class="material-symbols-outlined text-[14px]" style="color: #f8bb70;">check_circle</span>
+            Ưu đãi sinh nhật đặc biệt
+          </li>
+        </ul>
+      </div>
+
+    </aside><!-- end .desktop-sidebar -->
+
+    </div><!-- end .desktop-layout -->
+
+  </main>
+
+  <!-- ═══════════════════════════════════════
+       FIXED BOTTOM NAV
+  ════════════════════════════════════════ -->
+  <nav class="bottom-nav fixed bottom-0 w-full z-50 pb-safe bg-surface/92 backdrop-blur-xl" style="box-shadow: 0 -4px 20px -2px rgba(44,24,16,0.1);">
+    <!-- Quick order CTAs -->
+    <div class="px-gutter py-space-sm flex items-center gap-space-sm">
+      <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+         class="flex-1 min-h-[48px] px-space-md rounded-full text-white flex items-center justify-center gap-space-xs text-label-lg active:scale-[0.98] transition-transform"
+         style="background: #0068FF; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 4px 14px rgba(0,104,255,0.3);">
+        <span class="material-symbols-outlined text-[20px]">chat</span>
+        <span>Đặt qua Zalo</span>
+      </a>
+      <a href="tel:0944939184"
+         class="flex-1 min-h-[48px] px-space-md rounded-full bg-primary-container text-surface-bright flex items-center justify-center gap-space-xs text-label-lg active:scale-[0.98] transition-transform"
+         style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px; box-shadow: 0 4px 16px rgba(44,24,16,0.25);">
+        <span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+        <span>Gọi Hotline</span>
+      </a>
+    </div>
+    <!-- Bottom tab bar -->
+    <div class="flex justify-around items-center h-14 px-gutter">
+      <a href="#hero"     class="bottom-tab flex flex-col items-center justify-center gap-0.5 w-14 h-12 text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined text-[22px]">local_cafe</span>
+        <span class="text-label-sm" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">Quán</span>
+      </a>
+      <a href="#menu"     class="bottom-tab flex flex-col items-center justify-center gap-0.5 w-14 h-12 text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined text-[22px]">restaurant_menu</span>
+        <span class="text-label-sm" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">Món</span>
+      </a>
+      <a href="#ordering" class="bottom-tab flex flex-col items-center justify-center gap-0.5 w-14 h-12 text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+        <span class="text-label-sm" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">Đặt hàng</span>
+      </a>
+      <a href="#contact"  class="bottom-tab flex flex-col items-center justify-center gap-0.5 w-14 h-12 text-on-surface-variant transition-colors">
+        <span class="material-symbols-outlined text-[22px]">storefront</span>
+        <span class="text-label-sm" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">Liên hệ</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════ -->
+  <script>
+    // ── Nav chip active state ──
+    const navChips = document.querySelectorAll('.nav-chip');
+    const sections = ['hero', 'menu', 'ordering', 'contact'];
+
+    function updateNavChip(activeId) {
+      navChips.forEach((chip) => {
+        const isActive = chip.getAttribute('href') === '#' + activeId;
+        chip.classList.toggle('bg-primary-container', isActive);
+        chip.classList.toggle('text-surface', isActive);
+        chip.classList.toggle('bg-surface', !isActive);
+        chip.classList.toggle('text-on-surface-variant', !isActive);
+      });
+    }
+
+    // ── Bottom tab active state ──
+    const bottomTabs = document.querySelectorAll('.bottom-tab');
+    function updateBottomTab(activeId) {
+      bottomTabs.forEach((tab, i) => {
+        const isActive = sections[i] === activeId;
+        tab.classList.toggle('text-primary', isActive);
+        tab.classList.toggle('text-on-surface-variant', !isActive);
+      });
+    }
+
+    // ── Intersection Observer for scroll-spy ──
+    const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          updateNavChip(entry.target.id);
+          updateBottomTab(entry.target.id);
+        }
+      });
+    }, { threshold: 0.3 });
+    sectionEls.forEach(el => observer.observe(el));
+    updateNavChip('hero');
+    updateBottomTab('hero');
+
+    // ── Render menu from JSON ──
+    async function loadMenu() {
+      const filterEl = document.getElementById('filterChips');
+      const gridEl   = document.getElementById('menuGrid');
+      let data;
+      try {
+        const res = await fetch('./menu.json');
+        if (!res.ok) throw new Error('fetch failed');
+        data = await res.json();
+      } catch (e) {
+        gridEl.innerHTML = `
+          <div class="col-span-2 p-space-md rounded-xl bg-surface-container text-center text-body-sm text-on-surface-variant">
+            Không thể tải thực đơn. Vui lòng chạy qua local server (python3 -m http.server).
+          </div>`;
+        filterEl.innerHTML = '';
+        return;
+      }
+
+      // Build filter chips
+      const allCategories = ['Tất cả', ...data.map(c => c.category)];
+      filterEl.innerHTML = allCategories.map((cat, i) => `
+        <button
+          class="filter-chip flex-shrink-0 px-space-md py-1.5 rounded-full text-label-md transition-all active:scale-95 ${i === 0 ? 'active' : ''}"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;"
+          data-category="${cat}">
+          ${cat}
+        </button>
+      `).join('');
+
+      // Flatten all items
+      const allItems = data.flatMap(cat =>
+        cat.items.map(item => ({ ...item, category: cat.category }))
+      );
+
+      // Render cards
+      function renderCards(filterCat) {
+        const filtered = filterCat === 'Tất cả'
+          ? allItems
+          : allItems.filter(item => item.category === filterCat);
+
+        gridEl.innerHTML = filtered.map(item => `
+          <div class="p-space-md rounded-xl bg-surface-container-lowest flex flex-col justify-between gap-space-sm"
+               style="box-shadow: 0 4px 20px -2px rgba(44,24,16,0.06);">
+            <div class="flex items-start justify-between gap-space-sm">
+              <div class="flex flex-col min-w-0">
+                <span class="text-headline-sm text-on-surface">${item.name}</span>
+                <p class="text-body-sm text-on-surface-variant mt-0.5">${item.desc || ''}</p>
+              </div>
+              <span class="px-2.5 py-1 rounded-full bg-surface-container text-secondary text-label-lg flex-shrink-0"
+                    style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 15px;">
+                ${item.price}
+              </span>
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-label-sm bg-surface-container-low px-2 py-0.5 rounded text-on-surface-variant"
+                    style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 11px;">
+                ${item.tags || item.category}
+              </span>
+              <a href="https://zalo.me/huongnguyen" target="_blank" rel="noopener noreferrer"
+                 class="min-h-[36px] px-3 rounded-full bg-secondary-container text-on-secondary-container text-label-md flex items-center gap-1 active:scale-95 transition-transform"
+                 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; font-size: 13px;">
+                <span class="material-symbols-outlined text-[16px]">add</span>
+                Chọn món
+              </a>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      renderCards('Tất cả');
+
+      // Filter chip click handler
+      filterEl.addEventListener('click', (e) => {
+        const btn = e.target.closest('.filter-chip');
+        if (!btn) return;
+        filterEl.querySelectorAll('.filter-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards(btn.dataset.category);
+      });
+    }
+
+    // ── Hero slideshow ──
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots   = document.querySelectorAll('.hero-dot');
+      let current  = 0;
+
+      function goTo(index) {
+        slides[current].style.opacity = '0';
+        dots[current].style.background = 'rgba(255,248,242,0.4)';
+        dots[current].style.width = '0.5rem';
+        current = index;
+        slides[current].style.opacity = '1';
+        dots[current].style.background = 'rgba(255,248,242,0.9)';
+        dots[current].style.width = '1.5rem';
+      }
+
+      // Auto-advance every 4s
+      let timer = setInterval(() => goTo((current + 1) % slides.length), 4000);
+
+      // Dot clicks
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          clearInterval(timer);
+          goTo(parseInt(dot.dataset.index));
+          timer = setInterval(() => goTo((current + 1) % slides.length), 4000);
+        });
+      });
+
+      // Swipe support
+      let touchStartX = 0;
+      const slideshow = document.getElementById('heroSlideshow');
+      slideshow.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      slideshow.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) {
+          clearInterval(timer);
+          goTo(diff > 0 ? (current + 1) % slides.length : (current - 1 + slides.length) % slides.length);
+          timer = setInterval(() => goTo((current + 1) % slides.length), 4000);
+        }
+      }, { passive: true });
+    })();
+
+    loadMenu();
+  </script>
+</body>
+</html>

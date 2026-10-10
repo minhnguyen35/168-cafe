@@ -1,0 +1,50 @@
+[
+  {
+    "category": "Cafe",
+    "items": [
+      { "name": "Cafe Đen", "price": "20,000đ", "desc": "", "tags": "Đậm vị • Truyền thống" },
+      { "name": "Cafe Sữa", "price": "23,000đ", "desc": "", "tags": "Ngọt béo • Cổ điển" },
+      { "name": "Cafe Latte", "price": "30,000đ", "desc": "", "tags": "Thơm mịn • Kem sữa" },
+      { "name": "Matcha Latte", "price": "35,000đ", "desc": "", "tags": "Trà xanh • Béo ngậy" },
+      { "name": "Bạc Xỉu", "price": "25,000đ", "desc": "", "tags": "Ngọt dịu • Ít caffein" },
+      { "name": "Cacao", "price": "25,000đ", "desc": "", "tags": "Ngọt đậm • Socola" },
+      { "name": "Cacao Latte", "price": "35,000đ", "desc": "", "tags": "Kem sữa • Socola" },
+      { "name": "Sữa Tươi", "price": "30,000đ", "desc": "", "tags": "Thanh mát • Bổ dưỡng" },
+      { "name": "Sữa Tươi Đường Đen", "price": "35,000đ", "desc": "Matcha, socola", "tags": "Thơm béo • Đường đen" }
+    ]
+  },
+  {
+    "category": "Trà",
+    "items": [
+      { "name": "Trà Lipton", "price": "30,000đ", "desc": "", "tags": "Thanh nhẹ • Cổ điển" },
+      { "name": "Trà Gừng", "price": "30,000đ", "desc": "", "tags": "Ấm nóng • Thơm cay" },
+      { "name": "Trà Sữa", "price": "35,000đ", "desc": "Bạc hà, khoai môn, matcha, socola", "tags": "Béo ngậy • Nhiều vị" },
+      { "name": "Trà Đào", "price": "30,000đ", "desc": "", "tags": "Chua ngọt • Thơm mát" },
+      { "name": "Trà Oolong", "price": "30,000đ", "desc": "Cam, đào, dâu, chanh dây, thơm", "tags": "Thanh mát • Nhiều vị" },
+      { "name": "Trà Đá Me", "price": "30,000đ", "desc": "", "tags": "Chua ngọt • Giải nhiệt" },
+      { "name": "Trà Đác Thơm", "price": "35,000đ", "desc": "", "tags": "Đặc biệt • Thơm ngon" }
+    ]
+  },
+  {
+    "category": "Nước Ép & Soda",
+    "items": [
+      { "name": "Nước Ép", "price": "30,000đ", "desc": "Cam, thơm, carot, ổi, táo", "tags": "Tươi mát • Vitamin" },
+      { "name": "Nước Ép Mix", "price": "35,000đ", "desc": "", "tags": "Hỗn hợp • Bổ dưỡng" },
+      { "name": "Sinh Tố", "price": "30,000đ", "desc": "", "tags": "Béo bùi • Đầy đặn" },
+      { "name": "Soda", "price": "25,000đ", "desc": "", "tags": "Sảng khoái • Giải nhiệt" },
+      { "name": "Chanh, Tắc Muối", "price": "25,000đ", "desc": "", "tags": "Chua mặn • Giải khát" },
+      { "name": "Nước Mơ, Nước Sấu", "price": "25,000đ", "desc": "", "tags": "Chua ngọt • Đặc sản" },
+      { "name": "Nước Chanh, Tắc", "price": "25,000đ", "desc": "", "tags": "Chua tươi • Mát lạnh" }
+    ]
+  },
+  {
+    "category": "Yogurt",
+    "items": [
+      { "name": "Yogurt Hũ", "price": "15,000đ", "desc": "", "tags": "Chua ngọt • Nhẹ nhàng" },
+      { "name": "Yogurt Đá", "price": "25,000đ", "desc": "", "tags": "Mát lạnh • Sảng khoái" },
+      { "name": "Yogurt Matcha / Socola", "price": "35,000đ", "desc": "", "tags": "Béo ngậy • Đặc biệt" },
+      { "name": "Yogurt Trái Cây", "price": "30,000đ", "desc": "Việt quất, dâu, đào, cam", "tags": "Tươi mát • Vitamin" },
+      { "name": "Yogurt Đác Thơm", "price": "35,000đ", "desc": "", "tags": "Đặc biệt • Thơm ngon" }
+    ]
+  }
+]
