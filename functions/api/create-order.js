@@ -81,7 +81,7 @@ export async function onRequestPost({ request, env }) {
   // ── 5. Send Telegram notification ─────────────────────────────────────────
   // Non-blocking: if Telegram fails, order still succeeds
   sendTelegram(env, orderId, customerName, phone, address, items, totalAmount).catch(err => {
-    console.error('Telegram notify failed:', err);
+    console.error('Telegram notify failed:', err.message, JSON.stringify(err));
   });
 
   // ── 6. Respond ─────────────────────────────────────────────────────────────
@@ -131,6 +131,9 @@ async function sendTelegram(env, orderId, customerName, phone, address, items, t
       text,
       parse_mode: 'Markdown',
     }),
+  }).then(r => r.json()).then(r => {
+    if (!r.ok) console.error('Telegram API error:', JSON.stringify(r));
+    else console.log('Telegram sent ok, message_id:', r.result?.message_id);
   });
 }
 
