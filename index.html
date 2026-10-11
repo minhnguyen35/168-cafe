@@ -1137,28 +1137,41 @@
       cartNextBtn.disabled = false;
       cartNextBtn.style.opacity = '1';
 
-      cartItems.innerHTML = entries.map(([name, { price, qty }]) => `
-        <div class="flex items-center justify-between gap-2 py-2 border-b border-outline-variant last:border-0">
-          <div class="flex flex-col min-w-0 flex-1">
-            <span class="text-body-md text-on-surface font-medium truncate">${name}</span>
-            <span class="text-body-sm text-secondary">${price}</span>
+      cartItems.innerHTML = entries.map(([name, { price, qty, note }]) => `
+        <div class="flex flex-col py-2 border-b border-outline-variant last:border-0 gap-1">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex flex-col min-w-0 flex-1">
+              <span class="text-body-md text-on-surface font-medium truncate">${name}</span>
+              <span class="text-body-sm text-secondary">${price}</span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <button class="qty-btn w-8 h-8 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform"
+                      data-name="${name}" data-delta="-1">
+                <span class="material-symbols-outlined text-[16px]">remove</span>
+              </button>
+              <span class="text-label-lg w-5 text-center" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">${qty}</span>
+              <button class="qty-btn w-8 h-8 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform"
+                      data-name="${name}" data-delta="1">
+                <span class="material-symbols-outlined text-[16px]">add</span>
+              </button>
+            </div>
           </div>
-          <div class="flex items-center gap-2 flex-shrink-0">
-            <button class="qty-btn w-8 h-8 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform"
-                    data-name="${name}" data-delta="-1">
-              <span class="material-symbols-outlined text-[16px]">remove</span>
-            </button>
-            <span class="text-label-lg w-5 text-center" style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;">${qty}</span>
-            <button class="qty-btn w-8 h-8 rounded-full bg-surface-container flex items-center justify-center active:scale-90 transition-transform"
-                    data-name="${name}" data-delta="1">
-              <span class="material-symbols-outlined text-[16px]">add</span>
-            </button>
-          </div>
+          <input type="text" class="item-note w-full px-3 py-1.5 rounded-lg border border-outline-variant bg-surface text-body-sm text-on-surface outline-none focus:border-secondary transition-colors"
+                 placeholder="Ghi chú: ít đường, nhiều đá…" maxlength="80"
+                 data-name="${name}" value="${note || ''}"
+                 style="font-family:'Be Vietnam Pro',sans-serif;"/>
         </div>
       `).join('');
 
       cartItems.querySelectorAll('.qty-btn').forEach(btn => {
         btn.addEventListener('click', () => changeQty(btn.dataset.name, parseInt(btn.dataset.delta)));
+      });
+
+      // Save note back to cart on input
+      cartItems.querySelectorAll('.item-note').forEach(input => {
+        input.addEventListener('input', () => {
+          if (cart[input.dataset.name]) cart[input.dataset.name].note = input.value;
+        });
       });
 
       cartTotal.textContent = computeTotal().toLocaleString('vi-VN') + 'đ';
@@ -1220,11 +1233,17 @@
         return;
       }
 
+      if (!/^(0|\+84)[0-9]{9}$/.test(phone.replace(/\s/g, ''))) {
+        formError.textContent = 'Số điện thoại không hợp lệ (ví dụ: 0912345678).';
+        formError.classList.remove('hidden');
+        return;
+      }
+
       formError.classList.add('hidden');
       cartSubmitBtn.disabled = true;
       cartSubmitBtn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span> Đang xử lý…`;
 
-      const items = Object.entries(cart).map(([name, { price, qty }]) => ({ name, price, qty }));
+      const items = Object.entries(cart).map(([name, { price, qty, note }]) => ({ name, price, qty, note: note || '' }));
       const totalAmount = computeTotal();
 
       try {
@@ -1244,9 +1263,12 @@
         vietqrDesc.textContent = data.paymentDesc;
         showStep(3);
 
-        // Clear cart
+        // Clear cart and form
         Object.keys(cart).forEach(k => delete cart[k]);
         updateCartBtn();
+        fieldName.value = '';
+        fieldPhone.value = '';
+        fieldAddress.value = '';
 
       } catch (err) {
         formError.textContent = 'Đặt hàng thất bại: ' + err.message + '. Vui lòng thử lại.';
