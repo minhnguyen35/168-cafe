@@ -106,6 +106,7 @@ function buildVietQRUrl({ bankId, accountNo, accountName, amount, addInfo }) {
 // Telegram Bot notification
 // ─────────────────────────────────────────────────────────────────────────────
 async function sendTelegram(env, orderId, customerName, phone, address, items, totalAmount) {
+  console.log('sendTelegram called, token present:', !!env.TELEGRAM_BOT_TOKEN, 'chat_id present:', !!env.TELEGRAM_CHAT_ID);
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
 
   const lines = items.map(i => `  • ${i.name} x${i.qty} — ${Number(i.price.replace(/[^0-9]/g, '')).toLocaleString('vi-VN')}đ`).join('\n');
