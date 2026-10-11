@@ -79,10 +79,11 @@ export async function onRequestPost({ request, env }) {
   }
 
   // ── 5. Send Telegram notification ─────────────────────────────────────────
-  // Non-blocking: if Telegram fails, order still succeeds
-  sendTelegram(env, orderId, customerName, phone, address, items, totalAmount).catch(err => {
-    console.error('Telegram notify failed:', err.message, JSON.stringify(err));
-  });
+  try {
+    await sendTelegram(env, orderId, customerName, phone, address, items, totalAmount);
+  } catch (err) {
+    console.error('Telegram notify failed:', err.message);
+  }
 
   // ── 6. Respond ─────────────────────────────────────────────────────────────
   return jsonResponse({ success: true, orderId, vietqrUrl, paymentDesc }, 201);
@@ -109,7 +110,11 @@ async function sendTelegram(env, orderId, customerName, phone, address, items, t
   console.log('sendTelegram called, token present:', !!env.TELEGRAM_BOT_TOKEN, 'chat_id present:', !!env.TELEGRAM_CHAT_ID);
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return;
 
-  const lines = items.map(i => `  • ${i.name} x${i.qty} — ${Number(i.price.replace(/[^0-9]/g, '')).toLocaleString('vi-VN')}đ`).join('\n');
+  const lines = items.map(i => {
+    const price = Number(i.price.replace(/[^0-9]/g, '')).toLocaleString('vi-VN');
+    const note = i.note ? ` (${i.note})` : '';
+    return `  • ${i.name} x${i.qty} — ${price}đ${note}`;
+  }).join('\n');
   const text = [
     `🛍 *Đơn hàng mới* — ${orderId}`,
     ``,
